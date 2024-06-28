@@ -1,0 +1,7 @@
+pip install pycrypto
+pip install cryptography
+pip install qrcode
+pip install pysimplegui
+pip install pyqrcode
+pip install opencv-python
+
