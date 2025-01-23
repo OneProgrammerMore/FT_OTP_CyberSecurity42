@@ -33,6 +33,18 @@ $ sleep 60
 $ ./ft_otp -k ft_otp.key
 123518
 ```
+- Easy run it
+```
+echo -n "NEVER GONNA    GIVE    YOU   UP" > key.txt
+cat key.txt | wc -c
+xxd -p key.txt > key.hex
+cat key.hex | wc -c
+python3 ft_otp.py -g key.hex
+python3 ft_otp.py -k ft_otp.key
+sleep 60
+python3 ft_otp.py -k ft_otp.key
+python3  ft_otp.py -k ft_otp.key -u MarioGG -a ggmario93@gmail.com -d 7 -H 4 -S 45 -f AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaaaaaa -QC
+```
 
 Puedes comprobar si tu programa funciona correctamente comparando las contraseñas
 generadas con Oathtool o cualquier herramienta de tu elección.

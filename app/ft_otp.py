@@ -16,6 +16,14 @@ import hmac
 import codecs
 import math
 
+import signal
+
+def handler(signum, frame):
+    print('Signal received, shutting down gracefully...')
+    sys.exit(0)
+
+signal.signal(signal.SIGTERM, handler)
+signal.signal(signal.SIGINT, handler)
 
 optionGSaveG  = False
 optionKNewTokenG = False
@@ -100,7 +108,7 @@ def argumentsRead(*args,**kwargs):
                             elif(char == "k"):
                                 optionKNewTokenG = True
                                 newArgumentExpected = True
-                            #-I          --> The program generates a new temporal password (otp) and will show it into console.
+                            #-I          --> The program generates a Graphic User Interface (GUI) In order to change data dynamically.
                             elif(char == "I"):
                                 gl_optionGUI = True
                                 newArgumentExpected = True
@@ -655,7 +663,15 @@ def ShowQRCode(secretKeyBase32Str):
         cv2.startWindowThread()
         cv2.namedWindow("preview")
         cv2.imshow("QR", imgQR)
-        cv2.waitKey(0)
+        
+        # Use a loop to periodically check for termination signals
+        while True:
+            key = cv2.waitKey(100)  # Wait 100ms and check for termination
+            if key != -1:  # If any key is pressed, exit
+                break
+            time.sleep(0.1)
+
+        cv2.destroyAllWindows()
 
 
     except Exception as e:
@@ -693,7 +709,7 @@ def otpGUI():
 						[sg.Text('Hexadecimal Key'), sg.Push()],
 						[sg.Multiline( default_text=gl_decryptedKey32B , key='-HEXKEY-', expand_x=True, expand_y=True, enable_events=True), sg.Push()],
 						
-						[sg.Text('Time Step [s] (tioical 30s)'), sg.Push()],
+						[sg.Text('Time Step [s] (tipical 30s)'), sg.Push()],
 						[sg.Input(default_text=gl_timeStepSecondInt, key='-TIMESTEP-', expand_x=True, expand_y=True, enable_events=True), sg.Push()],
 						
 						[sg.Text('Number Of Digits'), sg.Push()],

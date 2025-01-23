@@ -1,0 +1,8 @@
+PySimpleGUI
+pyqrcode
+opencv-python
+cryptography
+pycryptodome
+opencv-python-headless
+pypng
+

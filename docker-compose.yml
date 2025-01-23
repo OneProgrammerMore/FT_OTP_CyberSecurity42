@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  python-app:
+    build: .
+    command: "sleep infinity"
+    volumes:
+      - ./app/:/app/program
+    environment:
+      - DISPLAY=${DISPLAY}
+    network_mode: "host"
+    devices:
+      - "/dev/snd"
