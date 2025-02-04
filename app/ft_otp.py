@@ -649,7 +649,10 @@ def PrintProgramHelp():
 
     print(auxStr)
 
-
+def CreateQRCode(secretKeyBase32Str):
+    stringQRAux = "otpauth://totp/"+gl_userString+":"+gl_accountString+"?secret="+secretKeyBase32Str+"&issuer="+gl_issuer
+    url = pyqrcode.create(stringQRAux)
+    url.png(gl_QRPath, scale = 7)
 
 def ShowQRCode(secretKeyBase32Str):
 
@@ -700,7 +703,6 @@ def otpGUI():
 	"""
 	function used in order to use the Graphical User Interface
 	"""
-	
 	global gl_QRPath
 	global gl_issuer, gl_userString, gl_accountString, gl_timeStepSecondInt, gl_digitsNumberInt, gl_hashOptSelInt
 	global gl_decryptedKey32B
@@ -752,12 +754,11 @@ def otpGUI():
 	layout = [[ sg.Frame('QR Section' ,sectionQR, element_justification='r', expand_x=True, expand_y=True), 
 			sg.Frame('OTP Section', sectionOTP, element_justification='r', expand_x=True, expand_y=True) ],
 			[sg.Frame('Errors:' ,sectionErrors, element_justification='center', expand_x=True)],
-			[sg.VPush(), sg.Sizegrip()]    
-			]
+			[sg.VPush(), sg.Sizegrip()]]
 	
 	# Create the window
 	window = sg.Window("OTP - One Time Password Generator", layout, resizable=True)
-
+	CreateQRCode(gl_decryptedKey32B)
 	# Create an event loop
 	while True:
 		event, values = window.read()
@@ -803,7 +804,7 @@ def otpGUI():
 
 
 	window.close()
-
+    
 
 
 if __name__==  "__main__":

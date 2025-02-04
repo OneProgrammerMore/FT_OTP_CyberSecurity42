@@ -193,7 +193,7 @@ xxd -p -c0 key.txt > key.hex
 cat key.hex | wc -c
 python ft_otp.py -g key.hex
 sleep 60
-python ft_otp.py -k ft_otp.key
+#python ft_otp.py -k ft_otp.key
 python ft_otp.py -k ft_otp.key -I
 ```
 
